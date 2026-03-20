@@ -23,7 +23,7 @@ void QUEUE::addProcess(int processID, int time) {
 }
 
 void QUEUE::removeProcess(int processID) {
-    if (asociatedProcesses.contains(processID)) {
+    if (asociatedProcesses.find(processID) != asociatedProcesses.end()) {
         asociatedProcesses.erase(processID);
         arrivalT.erase(processID);
         visited.erase(processID);

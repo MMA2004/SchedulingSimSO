@@ -85,18 +85,17 @@ int main(int argc, char* argv[]) {
             float promComp = 0;
             float promTAT = 0;
             float promWait = 0;
-            std::cout << "Process Tag; Burst Time (BT); Remaining Time (RemT); Arrival Time (AT); Queue; Priority; Response Time (RT), Completion Time (CT), TurnAround Time (TAT), Waiting Time (WT)\n";
+            std::cout << "etiqueta; BT; AT; Q; Pr; WT; CT; RT; TAT\n";
             for (int i = 0; i < sch.getTable().getSize(); ++i) {
                 std::cout << sch.getTable().getProcessTag()[i] << "; "
                 << sch.getTable().getBurstTime()[i] << "; "
-                << sch.getTable().getRemainingTime()[i] << "; "
                 << sch.getTable().getArrivalTime()[i] << "; "
                 << sch.getTable().getQueue()[i] << "; "
                 << sch.getTable().getPriority()[i] << "; "
-                << sch.getTable().getResponseTime()[i] << "; "
+                << sch.getTable().getWaitingTime()[i] << "; "
                 << sch.getTable().getCompletionTime()[i] << "; "
-                << sch.getTable().getTAT()[i] << "; "
-                << sch.getTable().getWaitingTime()[i] << "\n";
+                << sch.getTable().getResponseTime()[i] << "; "
+                << sch.getTable().getTAT()[i] << "\n";
                 promRes += static_cast<float>(sch.getTable().getResponseTime()[i]);
                 promComp += static_cast<float>(sch.getTable().getCompletionTime()[i]);
                 promTAT += static_cast<float>(sch.getTable().getTAT()[i]);
