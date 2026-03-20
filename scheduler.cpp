@@ -344,7 +344,7 @@ int SCHEDULER::determineProcess(int numCola) {
     }
     else if (id == 1 || id == 2) {
         // SJF / PSJF (Unifico esto porque algo en SJF podría venir semi-trabajado de otra cola)
-        if (id == 1 && MLQ[numCola].isFirstTimeSJF()) {
+        if (id == 1 && numCola == 0 && MLQ[numCola].isFirstTimeSJF()) {
             for (std::set<int>::iterator it = MLQ[numCola].getAssociatedProcesses().begin(); it != MLQ[numCola].getAssociatedProcesses().end(); ++it) {
                 process = *it;
                 if (dataTable.getArrivalTime()[process] <= currentTime && ( firstTime == -1 || ( dataTable.getArrivalTime()[process] < firstTime || ( dataTable.getArrivalTime()[process] == firstTime && dataTable.getProcessTag()[process] < firstTag ) ) ) ) {
