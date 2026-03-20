@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "scheduler.h"
+#include <iomanip>
+#include <fstream>
 
 int main(int argc, char* argv[]) {
     //Recordar, argv[0] siempre es el nombre del ejecutable
@@ -85,7 +87,19 @@ int main(int argc, char* argv[]) {
             float promComp = 0;
             float promTAT = 0;
             float promWait = 0;
-            std::cout << "etiqueta; BT; AT; Q; Pr; WT; CT; RT; TAT\n";
+
+            // Crear archivo
+            std::ofstream out("res.txt");
+
+            // Formato decimal
+            std::cout << std::fixed << std::setprecision(1);
+            out << std::fixed << std::setprecision(1);
+
+            // Encabezado
+            std::cout << "# etiqueta; BT; AT; Q; Pr; WT; CT; RT; TAT\n";
+            out << "# etiqueta; BT; AT; Q; Pr; WT; CT; RT; TAT\n";
+
+
             for (int i = 0; i < sch.getTable().getSize(); ++i) {
                 std::cout << sch.getTable().getProcessTag()[i] << "; "
                 << sch.getTable().getBurstTime()[i] << "; "
@@ -96,6 +110,16 @@ int main(int argc, char* argv[]) {
                 << sch.getTable().getCompletionTime()[i] << "; "
                 << sch.getTable().getResponseTime()[i] << "; "
                 << sch.getTable().getTAT()[i] << "\n";
+                out << sch.getTable().getProcessTag()[i] << "; "
+                << sch.getTable().getBurstTime()[i] << "; "
+                << sch.getTable().getArrivalTime()[i] << "; "
+                << sch.getTable().getQueue()[i] << "; "
+                << sch.getTable().getPriority()[i] << "; "
+                << sch.getTable().getWaitingTime()[i] << "; "
+                << sch.getTable().getCompletionTime()[i] << "; "
+                << sch.getTable().getResponseTime()[i] << "; "
+                << sch.getTable().getTAT()[i] << "\n";
+
                 promRes += static_cast<float>(sch.getTable().getResponseTime()[i]);
                 promComp += static_cast<float>(sch.getTable().getCompletionTime()[i]);
                 promTAT += static_cast<float>(sch.getTable().getTAT()[i]);
@@ -105,12 +129,19 @@ int main(int argc, char* argv[]) {
             promComp = promComp / static_cast<float>(sch.getTable().getSize());
             promTAT = promTAT / static_cast<float>(sch.getTable().getSize());
             promWait = promWait / static_cast<float>(sch.getTable().getSize());
-            std::cout << "---------------------------------------------------\n";
-            std::cout << "AVERAGE METRICS\n";
-            std::cout << "Average RT  : " << promRes << "\n";
-            std::cout << "Average CT  : " << promComp << "\n";
-            std::cout << "Average TAT : " << promTAT << "\n";
-            std::cout << "Average WT  : " << promWait << "\n";
+
+            std::cout   << "WT=" << promWait << "; "
+                        << "CT=" << promComp << "; "
+                        << "RT=" << promRes << "; "
+                        << "TAT=" << promTAT << ";\n";
+
+            out << "WT=" << promWait << "; "
+            << "CT=" << promComp << "; "
+            << "RT=" << promRes << "; "
+            << "TAT=" << promTAT << ";\n";
+
+            // Cerrar archivo
+            out.close();
         }
         catch (std::exception& e) {
             std::cout << "Error: " << e.what() << "\nThe issue is most likely due to incorrect input parameters:\n";
