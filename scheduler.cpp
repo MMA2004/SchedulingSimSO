@@ -271,9 +271,6 @@ void SCHEDULER::simulation() {
         }
     }
 
-    // ============================================================
-    // CÁLCULO DE TURNAROUND TIME (TAT)
-    // ============================================================
     /*
      TAT = Completion Time - Arrival Time
 
