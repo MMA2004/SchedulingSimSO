@@ -1,38 +1,42 @@
-# SchedulingSimSO
+# MLFQ Scheduler Simulator
 
-Simulador de planificación de procesos desarrollado en C++.
+Este proyecto implementa un simulador de planificación de procesos utilizando el algoritmo **MLFQ (Multi-Level Feedback Queue)**, desarrollado en C++ bajo el paradigma de programación orientada a objetos.
 
 ---
 
-## 🔹 Instrucciones para ejecutar
+## Descripción
 
-1. **Clonar el repositorio**  
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd <NOMBRE_DEL_REPOSITORIO>
-   ```
+El simulador permite ejecutar diferentes configuraciones de colas de planificación, combinando algoritmos como:
 
-2. **Crear la imagen de Docker**
-```bash
-   docker build -t scheduling-sim .
-```
+- Round Robin (RR)
+- Shortest Job First (SJF)
+- Shortest Time to Completion First (STCF)
+- Priority
 
-3. **Crear un contenedor interactivo**
+Los procesos son leídos desde archivos de entrada y el sistema calcula métricas como:
 
-```bash
-docker run -it --rm scheduling-sim bash
-```
+- Waiting Time (WT)
+- Completion Time (CT)
+- Response Time (RT)
+- Turnaround Time (TAT)
 
-Dentro del contenedor, para conocer cómo usar el ejecutable:
+## Ejemplos
 
-```bash
-./SchedulingSimSO -h
-```
+En la carpeta **`testFiles/`** se encuentran archivos de entrada de prueba para cada algoritmo.
 
-⚡ **Notas**
+En el archivo **`solucionesAMano.xlsx`** se encuentran los casos de prueba resueltos manualmente, incluyendo:
 
-La imagen de Docker solo incluye el ejecutable compilado SchedulingSimSO y la carpeta ./testFiles.
+- Orden de ejecución esperado
+- Cálculo paso a paso
+- Validación de resultados del simulador
 
-Puedes ejecutar tus pruebas directamente dentro del contenedor.
+Esto permite verificar la correcta implementación del algoritmo.
 
-Cualquier cambio en los archivos fuente requiere reconstruir la imagen con docker build.
+---
+
+## Ejecución
+
+### Compilar
+
+```bash 
+  g++ *.cpp -o SchedulingSimSO
